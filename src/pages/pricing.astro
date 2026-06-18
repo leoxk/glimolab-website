@@ -1,0 +1,311 @@
+---
+/**
+ * GlimoLab Pricing Page
+ * Three-tier pricing cards + feature comparison + FAQ accordion
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { useTranslations, getLangFromUrl, localizePath, type UIKey } from '@i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const plans = [
+  {
+    name: 'Starter',
+    price: '$299',
+    period: '/month',
+    features: [
+      'Up to 10 videos/month',
+      '1080p quality',
+      '2 languages included',
+      '48h turnaround',
+      'Email support',
+    ],
+    cta: 'cta.getStarted',
+    highlighted: false,
+  },
+  {
+    name: 'Professional',
+    price: '$799',
+    period: '/month',
+    features: [
+      'Up to 30 videos/month',
+      '4K quality',
+      '5 languages included',
+      '24h turnaround',
+      'Priority support',
+      'Custom branding',
+    ],
+    cta: 'cta.getStarted',
+    highlighted: true,
+    badge: 'POPULAR',
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    period: '',
+    features: [
+      'Unlimited videos',
+      '4K+ quality',
+      '30+ languages',
+      'Same-day turnaround',
+      'Dedicated account manager',
+      'API access',
+      'White-label options',
+    ],
+    cta: 'cta.contactSales',
+    highlighted: false,
+  },
+];
+
+const comparisonFeatures = [
+  { name: 'Videos per month', starter: '10', professional: '30', enterprise: 'Unlimited' },
+  { name: 'Video quality', starter: '1080p', professional: '4K', enterprise: '4K+' },
+  { name: 'Languages', starter: '2', professional: '5', enterprise: '30+' },
+  { name: 'Turnaround time', starter: '48h', professional: '24h', enterprise: 'Same day' },
+  { name: 'Support level', starter: 'Email', professional: 'Priority', enterprise: 'Dedicated manager' },
+  { name: 'Custom branding', starter: false, professional: true, enterprise: true },
+  { name: 'API access', starter: false, professional: false, enterprise: true },
+  { name: 'White-label', starter: false, professional: false, enterprise: true },
+];
+
+const faqs = [
+  {
+    q: 'faq.q1',
+    a: 'faq.a1',
+  },
+  {
+    q: 'faq.q2',
+    a: 'faq.a2',
+  },
+  {
+    q: 'faq.q3',
+    a: 'faq.a3',
+  },
+  {
+    q: 'faq.q4',
+    a: 'faq.a4',
+  },
+  {
+    q: 'faq.q5',
+    a: 'faq.a5',
+  },
+  {
+    q: 'faq.q6',
+    a: 'faq.a6',
+  },
+];
+---
+
+<BaseLayout
+  title="Pricing — GlimoLab"
+  description="Simple, transparent pricing for AI-powered video production. Choose the plan that fits your content needs."
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="bg-grid pointer-events-none absolute inset-0"></div>
+    <div
+      class="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[600px] -translate-x-1/2 rounded-full blur-3xl"
+      style="background: radial-gradient(circle, rgba(0,102,255,0.12) 0%, transparent 70%);"
+    ></div>
+
+    <div class="relative mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 lg:py-32">
+      <p class="font-heading text-sm font-semibold uppercase tracking-widest text-primary">
+        {t('pricing.badge')}
+      </p>
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+        {t('pricing.title')}
+      </h1>
+      <p class="mt-4 text-lg text-text-muted">
+        {t('pricing.subtitle')}
+      </p>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="relative -mt-8 pb-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+        {plans.map((plan) => (
+          <div
+            class:list={[
+              'relative flex flex-col rounded-2xl border p-8 transition-all',
+              plan.highlighted
+                ? 'border-primary bg-dark-surface shadow-glow scale-[1.02] md:scale-105 z-10'
+                : 'border-dark-border bg-dark-surface/50 hover:border-primary/50',
+            ]}
+          >
+            {plan.badge && (
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-bold uppercase tracking-wider text-white">
+                {plan.badge}
+              </span>
+            )}
+            <h3 class="font-heading text-lg font-semibold text-white">{plan.name}</h3>
+            <div class="mt-4 flex items-baseline gap-1">
+              <span class="text-4xl font-bold text-white">{plan.price}</span>
+              {plan.period && (
+                <span class="text-text-muted">{plan.period}</span>
+              )}
+            </div>
+            <ul class="mt-8 flex-1 space-y-4">
+              {plan.features.map((feature) => (
+                <li class="flex items-start gap-3">
+                  <svg class="mt-0.5 h-5 w-5 shrink-0 text-primary" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="text-sm text-text-muted">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <a
+              href={localizePath(plan.name === 'Enterprise' ? '/contact' : '/contact', lang)}
+              class:list={[
+                'mt-8 block rounded-lg py-3.5 text-center text-sm font-semibold transition-all',
+                plan.highlighted
+                  ? 'bg-primary text-white shadow-glow hover:bg-primary/90'
+                  : 'border border-dark-border text-text-light hover:border-primary hover:text-white',
+              ]}
+            >
+              {t(plan.cta as UIKey)}
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Comparison Table -->
+  <section class="border-t border-dark-border py-24">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-center font-heading text-3xl font-bold text-white">
+        {t('pricing.compareTitle')}
+      </h2>
+      <p class="mt-3 text-center text-text-muted">
+        {t('pricing.compareSubtitle')}
+      </p>
+      <div class="mt-12 overflow-x-auto">
+        <table class="w-full min-w-[600px] text-sm">
+          <thead>
+            <tr class="border-b border-dark-border">
+              <th class="py-4 pr-4 text-left font-medium text-text-muted">Feature</th>
+              <th class="px-4 py-4 text-center font-medium text-text-muted">Starter</th>
+              <th class="px-4 py-4 text-center font-medium text-primary">Professional</th>
+              <th class="px-4 py-4 text-center font-medium text-text-muted">Enterprise</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonFeatures.map((feat, i) => (
+              <tr class:list={['border-b border-dark-border/50', i % 2 === 0 ? 'bg-dark-surface/30' : '']}>
+                <td class="py-4 pr-4 font-medium text-text-light">{feat.name}</td>
+                <td class="px-4 py-4 text-center">
+                  {typeof feat.starter === 'boolean' ? (
+                    feat.starter ? (
+                      <svg class="mx-auto h-5 w-5 text-primary" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                    ) : (
+                      <svg class="mx-auto h-5 w-5 text-dark-border" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                    )
+                  ) : (
+                    <span class="text-text-muted">{feat.starter}</span>
+                  )}
+                </td>
+                <td class="px-4 py-4 text-center">
+                  {typeof feat.professional === 'boolean' ? (
+                    feat.professional ? (
+                      <svg class="mx-auto h-5 w-5 text-primary" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                    ) : (
+                      <svg class="mx-auto h-5 w-5 text-dark-border" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                    )
+                  ) : (
+                    <span class="text-white font-medium">{feat.professional}</span>
+                  )}
+                </td>
+                <td class="px-4 py-4 text-center">
+                  {typeof feat.enterprise === 'boolean' ? (
+                    feat.enterprise ? (
+                      <svg class="mx-auto h-5 w-5 text-primary" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                    ) : (
+                      <svg class="mx-auto h-5 w-5 text-dark-border" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                    )
+                  ) : (
+                    <span class="text-text-muted">{feat.enterprise}</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="border-t border-dark-border py-24">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-center font-heading text-3xl font-bold text-white">
+        {t('pricing.faqTitle')}
+      </h2>
+      <p class="mt-3 text-center text-text-muted">
+        {t('pricing.faqSubtitle')}
+      </p>
+      <div class="mt-12 space-y-4" id="faq-list">
+        {faqs.map((faq, i) => (
+          <div class="faq-item rounded-xl border border-dark-border bg-dark-surface/50">
+            <button
+              type="button"
+              class="faq-toggle flex w-full items-center justify-between px-6 py-5 text-left"
+              aria-expanded="false"
+            >
+              <span class="pr-4 font-medium text-text-light">{t(faq.q as UIKey)}</span>
+              <svg class="faq-chevron h-5 w-5 shrink-0 text-text-muted transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+            <div class="faq-content hidden px-6 pb-5">
+              <p class="text-sm leading-relaxed text-text-muted">{t(faq.a as UIKey)}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="border-t border-dark-border py-24">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <h2 class="font-heading text-3xl font-bold text-white">
+        {t('pricing.bottomCtaTitle')}
+      </h2>
+      <p class="mt-4 text-text-muted">
+        {t('pricing.bottomCtaSubtitle')}
+      </p>
+      <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <a
+          href={localizePath('/contact', lang)}
+          class="rounded-lg bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-glow transition-all hover:bg-primary/90 hover:shadow-lg"
+        >
+          {t('cta.contactUs')}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll('.faq-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const content = item?.querySelector('.faq-content');
+      const chevron = item?.querySelector('.faq-chevron');
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+
+      btn.setAttribute('aria-expanded', String(!expanded));
+
+      if (content) {
+        content.classList.toggle('hidden', expanded);
+      }
+      if (chevron) {
+        chevron.classList.toggle('rotate-180', !expanded);
+      }
+    });
+  });
+</script>

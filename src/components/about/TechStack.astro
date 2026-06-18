@@ -1,0 +1,54 @@
+---
+/**
+ * TechStack — AI tool chain grid + production pipeline flow
+ * Showcases the technology GlimoLab uses for video production.
+ */
+interface Tool {
+  name: string;
+  icon: string;
+  description: string;
+}
+
+const tools: Tool[] = [
+  { name: 'Seedance 2.0', icon: '🎬', description: 'AI video generation & cinematic shots' },
+  { name: 'Kling', icon: '🎥', description: 'Text-to-video synthesis engine' },
+  { name: 'ElevenLabs', icon: '🎙️', description: 'AI voice synthesis & cloning' },
+  { name: 'Whisper', icon: '💬', description: 'Speech recognition & auto-subtitles' },
+];
+
+const pipeline = ['AI Generation', 'Voice Synthesis', 'Auto Subtitles', 'Multi-platform Export'];
+---
+
+<div>
+  <!-- Tool cards grid -->
+  <div class="grid grid-cols-2 gap-4 sm:grid-cols-4" data-reveal>
+    {tools.map((tool) => (
+      <div class="glass-card glass-card-hover p-6 text-center">
+        <div class="text-4xl">{tool.icon}</div>
+        <h3 class="mt-3 text-sm font-bold text-white">{tool.name}</h3>
+        <p class="mt-1 text-xs leading-relaxed text-text-muted">{tool.description}</p>
+      </div>
+    ))}
+  </div>
+
+  <!-- Pipeline flow -->
+  <div class="mt-10" data-reveal>
+    <p class="text-center font-heading text-sm font-semibold uppercase tracking-widest text-text-muted">
+      Production Pipeline
+    </p>
+    <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+      {pipeline.map((step, i) => (
+        <Fragment>
+          <span class="rounded-lg border border-dark-border bg-dark-surface/50 px-4 py-2 text-sm font-medium text-text-light transition-colors hover:border-primary hover:text-primary">
+            {step}
+          </span>
+          {i < pipeline.length - 1 && (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          )}
+        </Fragment>
+      ))}
+    </div>
+  </div>
+</div>

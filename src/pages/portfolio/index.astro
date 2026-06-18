@@ -1,0 +1,145 @@
+---
+/**
+ * GlimoLab Portfolio Listing Page
+ * Hero → Filter tabs → Grid → CTA
+ * Client-side filtering via vanilla JS on data-category attributes.
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import CTASection from '@components/ui/CTASection.astro';
+import PortfolioCard from '@components/portfolio/PortfolioCard.astro';
+import { getCollection } from 'astro:content';
+
+// Fetch all portfolio entries, sorted by date (newest first)
+const portfolio = await getCollection('portfolio');
+const sorted = portfolio.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+);
+
+const filters = [
+  { label: 'All', value: 'all' },
+  { label: 'E-commerce', value: 'ecommerce' },
+  { label: 'Brand', value: 'brand' },
+  { label: 'Education', value: 'education' },
+  { label: 'Social Media', value: 'social' },
+];
+---
+
+<BaseLayout
+  title="Portfolio — GlimoLab AI Video Production"
+  description="Explore our client work — from e-commerce batch production to brand stories and viral social campaigns."
+>
+  <!-- ============ Hero ============ -->
+  <section class="relative overflow-hidden">
+    <div class="bg-grid pointer-events-none absolute inset-0"></div>
+    <div
+      class="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-3xl"
+      style="background: radial-gradient(circle, rgba(0,102,255,0.15) 0%, transparent 70%);"
+    >
+    </div>
+
+    <div class="relative mx-auto flex max-w-4xl flex-col items-center px-4 py-24 text-center sm:px-6 lg:py-32">
+      <div class="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-dark-border bg-dark-surface/50 px-4 py-1.5 text-xs font-medium text-accent backdrop-blur">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+        </span>
+        Case Studies
+      </div>
+
+      <h1 class="animate-fade-in-up mt-8 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl" style="animation-delay: 0.1s;">
+        Our Work
+      </h1>
+
+      <p class="animate-fade-in-up mt-6 max-w-2xl text-lg leading-relaxed text-text-muted" style="animation-delay: 0.2s;">
+        Explore how we've helped brands across Southeast Asia scale their video content with AI-powered production.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ Filter + Grid ============ -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- Filter tabs -->
+      <div class="flex flex-wrap justify-center gap-2" data-reveal>
+        {filters.map((filter, i) => (
+          <button
+            type="button"
+            data-filter={filter.value}
+            class={`rounded-lg border px-4 py-2 text-sm font-medium transition-all ${
+              i === 0
+                ? 'border-primary bg-primary text-white'
+                : 'border-dark-border text-text-muted hover:border-primary hover:text-primary'
+            }`}
+          >
+            {filter.label}
+          </button>
+        ))}
+      </div>
+
+      <!-- Portfolio grid -->
+      <div id="portfolio-grid" class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {sorted.map((entry) => (
+          <PortfolioCard
+            title={entry.data.title}
+            description={entry.data.description}
+            category={entry.data.category}
+            client={entry.data.client}
+            slug={entry.id}
+          />
+        ))}
+      </div>
+
+      <!-- Empty state (hidden by default, shown by JS when no results) -->
+      <div id="portfolio-empty" class="hidden py-20 text-center">
+        <p class="text-lg text-text-muted">No projects in this category yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <CTASection
+    title="Your Project Could Be Next"
+    description="Join the brands that trust GlimoLab for their video content needs."
+    primaryLabel="Start a Project"
+    secondaryLabel="View Services"
+  />
+</BaseLayout>
+
+<script>
+  // --- Portfolio filter: client-side category filtering ---
+  const filterButtons = document.querySelectorAll('[data-filter]');
+  const portfolioItems = document.querySelectorAll('#portfolio-grid > [data-category]');
+  const emptyState = document.getElementById('portfolio-empty');
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = (btn as HTMLElement).dataset.filter;
+
+      // Update active button styles
+      filterButtons.forEach((b) => {
+        b.classList.remove('border-primary', 'bg-primary', 'text-white');
+        b.classList.add('border-dark-border', 'text-text-muted');
+      });
+      btn.classList.remove('border-dark-border', 'text-text-muted');
+      btn.classList.add('border-primary', 'bg-primary', 'text-white');
+
+      // Filter items
+      let visibleCount = 0;
+      portfolioItems.forEach((item) => {
+        const itemCategory = item.getAttribute('data-category');
+        const shouldShow = filter === 'all' || itemCategory === filter;
+        if (shouldShow) {
+          (item as HTMLElement).style.display = '';
+          visibleCount++;
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+
+      // Toggle empty state
+      if (emptyState) {
+        emptyState.classList.toggle('hidden', visibleCount > 0);
+      }
+    });
+  });
+</script>

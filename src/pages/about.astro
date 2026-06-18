@@ -1,0 +1,141 @@
+---
+/**
+ * GlimoLab About Page
+ * Hero → Mission & Vision → Timeline → Tech Stack → Team → CTA
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import CTASection from '@components/ui/CTASection.astro';
+import Timeline from '@components/about/Timeline.astro';
+import TechStack from '@components/about/TechStack.astro';
+import TeamGrid from '@components/about/TeamGrid.astro';
+---
+
+<BaseLayout
+  title="About GlimoLab — Pioneering AI Video Production"
+  description="We combine cutting-edge AI technology with creative expertise to deliver stunning video content at unprecedented speed and scale."
+>
+  <!-- ============ Hero ============ -->
+  <section class="relative overflow-hidden">
+    <div class="bg-grid pointer-events-none absolute inset-0"></div>
+    <div
+      class="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-3xl"
+      style="background: radial-gradient(circle, rgba(0,102,255,0.15) 0%, transparent 70%);"
+    >
+    </div>
+
+    <div class="relative mx-auto flex max-w-4xl flex-col items-center px-4 py-24 text-center sm:px-6 lg:py-32">
+      <div class="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-dark-border bg-dark-surface/50 px-4 py-1.5 text-xs font-medium text-accent backdrop-blur">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+        </span>
+        About GlimoLab
+      </div>
+
+      <h1 class="animate-fade-in-up mt-8 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl" style="animation-delay: 0.1s;">
+        Pioneering AI Video Production
+      </h1>
+
+      <p class="animate-fade-in-up mt-6 max-w-2xl text-lg leading-relaxed text-text-muted" style="animation-delay: 0.2s;">
+        We combine cutting-edge AI technology with creative expertise to deliver stunning video content at unprecedented speed and scale.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ Mission & Vision ============ -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Our Purpose"
+        title="Mission & Vision"
+        subtitle="Driving the future of video production through AI-powered creativity."
+      />
+
+      <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <!-- Mission -->
+        <div class="glass-card glass-card-hover p-8" data-reveal>
+          <div class="flex items-center gap-3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 ring-1 ring-inset ring-primary/30">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="6" />
+                <circle cx="12" cy="12" r="2" fill="currentColor" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white">Our Mission</h3>
+          </div>
+          <p class="mt-4 text-base leading-relaxed text-text-muted">
+            To democratize professional video production through AI, making high-quality content accessible to businesses of all sizes across Southeast Asia.
+          </p>
+        </div>
+
+        <!-- Vision -->
+        <div class="glass-card glass-card-hover p-8" data-reveal>
+          <div class="flex items-center gap-3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 ring-1 ring-inset ring-accent/30">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent" aria-hidden="true">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white">Our Vision</h3>
+          </div>
+          <p class="mt-4 text-base leading-relaxed text-text-muted">
+            To become the leading AI-powered creative studio in the Asia-Pacific region.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Timeline ============ -->
+  <section class="border-t border-dark-border py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Our Journey"
+        title="Development Timeline"
+        subtitle="From an internal experiment to a full-fledged AI video production studio."
+      />
+      <div class="mt-12">
+        <Timeline />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Technology Stack ============ -->
+  <section class="border-t border-dark-border py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Technology"
+        title="Our Technology Stack"
+        subtitle="A curated suite of frontier AI models powering every stage of our production pipeline."
+      />
+      <div class="mt-12">
+        <TechStack />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Team ============ -->
+  <section class="border-t border-dark-border py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="The People"
+        title="Meet Our Team"
+        subtitle="A compact team of creators and engineers passionate about AI-driven storytelling."
+      />
+      <div class="mt-12">
+        <TeamGrid />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <CTASection
+    title="Want to Learn More?"
+    description="Discover how our AI-powered approach can transform your video content strategy."
+    primaryLabel="Get in Touch"
+    secondaryLabel="View Our Work"
+  />
+</BaseLayout>

@@ -1,0 +1,137 @@
+---
+/**
+ * GlimoLab Services Overview Page
+ * Hero → 3 service cards → CTA
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import CTASection from '@components/ui/CTASection.astro';
+import { localizePath, getLangFromUrl } from '@i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+
+const services = [
+  {
+    title: 'AI Video Production',
+    description:
+      'From product showcases to brand stories, we create professional videos using state-of-the-art AI generation, voice synthesis, and automated editing.',
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 9l5 3-5 3V9z" fill="currentColor"/></svg>`,
+    features: ['Product demos', 'Brand commercials', 'Explainer videos', 'Social media ads'],
+    href: '/services/ai-video-production',
+    accent: 'primary',
+  },
+  {
+    title: 'E-commerce Content',
+    description:
+      'Platform-optimized video content for Shopee, TikTok Shop, and Lazada — with A/B testing variants and batch production of 10-20 videos per day.',
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`,
+    features: ['Platform-specific formats', 'A/B testing variants', 'Batch production (10-20/day)', 'Multi-platform export'],
+    href: '/services/ecommerce-content',
+    accent: 'accent',
+  },
+  {
+    title: 'Multilingual Localization',
+    description:
+      'Reach audiences in 30+ languages with AI-powered dubbing, voice cloning, cultural adaptation, and automatic subtitle generation.',
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+    features: ['AI voice cloning', 'Cultural adaptation', 'Subtitle generation', '30+ languages'],
+    href: '/services/multilingual-localization',
+    accent: 'primary',
+  },
+];
+---
+
+<BaseLayout
+  title="Our Services — GlimoLab AI Video Production"
+  description="AI video production, e-commerce content, and multilingual localization services tailored for brands across Southeast Asia."
+>
+  <!-- ============ Hero ============ -->
+  <section class="relative overflow-hidden">
+    <div class="bg-grid pointer-events-none absolute inset-0"></div>
+    <div
+      class="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-3xl"
+      style="background: radial-gradient(circle, rgba(0,102,255,0.15) 0%, transparent 70%);"
+    >
+    </div>
+
+    <div class="relative mx-auto flex max-w-4xl flex-col items-center px-4 py-24 text-center sm:px-6 lg:py-32">
+      <div class="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-dark-border bg-dark-surface/50 px-4 py-1.5 text-xs font-medium text-accent backdrop-blur">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+        </span>
+        What We Do
+      </div>
+
+      <h1 class="animate-fade-in-up mt-8 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl" style="animation-delay: 0.1s;">
+        Our Services
+      </h1>
+
+      <p class="animate-fade-in-up mt-6 max-w-2xl text-lg leading-relaxed text-text-muted" style="animation-delay: 0.2s;">
+        End-to-end AI-powered video production services — from concept to multi-platform delivery, optimized for Southeast Asian markets.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ Service Cards ============ -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {services.map((service) => (
+          <a
+            href={localizePath(service.href, lang)}
+            class="group block"
+            data-reveal
+          >
+            <div class="glass-card glass-card-hover flex h-full flex-col p-8">
+              <!-- Icon -->
+              <div
+                class={`flex h-14 w-14 items-center justify-center rounded-xl ring-1 ring-inset ${
+                  service.accent === 'primary'
+                    ? 'bg-primary/10 text-primary ring-primary/30'
+                    : 'bg-accent/10 text-accent ring-accent/30'
+                }`}
+                set:html={service.icon}
+              >
+              </div>
+
+              <h3 class="mt-5 text-xl font-bold text-white transition-colors group-hover:text-primary">
+                {service.title}
+              </h3>
+              <p class="mt-3 text-sm leading-relaxed text-text-muted">
+                {service.description}
+              </p>
+
+              <!-- Feature list -->
+              <ul class="mt-5 space-y-2">
+                {service.features.map((feature) => (
+                  <li class="flex items-center gap-2 text-sm text-text-light">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class={`shrink-0 ${service.accent === 'primary' ? 'text-primary' : 'text-accent'}`} aria-hidden="true">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
+              <!-- Learn more link -->
+              <span class="mt-auto pt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                Learn More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform group-hover:translate-x-1" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <CTASection
+    title="Not Sure Which Service You Need?"
+    description="Tell us about your project and we'll recommend the best approach for your goals and budget."
+    primaryLabel="Start a Project"
+    secondaryLabel="See Our Work"
+  />
+</BaseLayout>

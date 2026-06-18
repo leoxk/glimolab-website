@@ -1,0 +1,46 @@
+---
+/**
+ * GlimoLab Homepage — full landing page
+ * Hero + Services + Stats + Featured Work + How It Works + Testimonials + CTA
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/home/Hero.astro';
+import Services from '@components/home/Services.astro';
+import Stats from '@components/home/Stats.astro';
+import FeaturedWork from '@components/home/FeaturedWork.astro';
+import HowItWorks from '@components/home/HowItWorks.astro';
+import Testimonials from '@components/home/Testimonials.astro';
+import CallToAction from '@components/home/CallToAction.astro';
+---
+
+<BaseLayout>
+  <Hero />
+  <Services />
+  <Stats />
+  <FeaturedWork />
+  <HowItWorks />
+  <Testimonials />
+  <CallToAction />
+</BaseLayout>
+
+<!-- Intersection Observer for scroll animations -->
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px',
+    }
+  );
+
+  document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+    observer.observe(el);
+  });
+</script>

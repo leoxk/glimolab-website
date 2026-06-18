@@ -1,0 +1,70 @@
+---
+/**
+ * Timeline — vertical development history timeline
+ * Left-aligned line with glowing dots and glass-card content panels.
+ */
+interface TimelineEvent {
+  period: string;
+  title: string;
+  description: string;
+}
+
+const events: TimelineEvent[] = [
+  {
+    period: '2024 Q4',
+    title: 'Founded as Internal Content Team',
+    description:
+      'A small group of creators and engineers began experimenting with AI video tools to serve in-house content needs across multiple brands.',
+  },
+  {
+    period: '2025 Q1',
+    title: 'First AI Video Production Pipeline',
+    description:
+      'Built an end-to-end pipeline integrating early AI generation models, voice synthesis, and automated subtitling — cutting production time by 80%.',
+  },
+  {
+    period: '2025 Q3',
+    title: 'Expanded to Serve External Clients',
+    description:
+      'Opened our pipeline to select external clients, delivering high-volume video campaigns for e-commerce brands across Southeast Asia.',
+  },
+  {
+    period: '2026 Q1',
+    title: 'GlimoLab Officially Launched',
+    description:
+      'Spun off as an independent company with a dedicated team, refined tech stack, and a mission to democratize professional video production.',
+  },
+  {
+    period: '2026 Q2',
+    title: 'Operations Across Southeast Asia',
+    description:
+      'Now serving clients across the Philippines, Indonesia, and beyond — with multi-language localization supporting 30+ languages.',
+  },
+];
+---
+
+<div class="relative mx-auto max-w-3xl">
+  <!-- Vertical gradient line -->
+  <div
+    class="absolute left-3 top-2 h-full w-px"
+    style="background: linear-gradient(to bottom, var(--color-primary), var(--color-accent), transparent);"
+  >
+  </div>
+
+  {events.map((event, i) => (
+    <div class="relative mb-8 pl-12 last:mb-0" data-reveal>
+      <!-- Glowing dot -->
+      <div class="absolute left-3 top-2 -translate-x-1/2">
+        <span class="block h-3 w-3 rounded-full bg-primary ring-4 ring-dark-bg"></span>
+        <span class="absolute inset-0 block h-3 w-3 animate-ping rounded-full bg-primary opacity-40"></span>
+      </div>
+
+      <!-- Content card -->
+      <div class="glass-card glass-card-hover p-6">
+        <p class="font-heading text-sm font-semibold tracking-wide text-accent">{event.period}</p>
+        <h3 class="mt-2 text-lg font-bold text-white">{event.title}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-text-muted">{event.description}</p>
+      </div>
+    </div>
+  ))}
+</div>

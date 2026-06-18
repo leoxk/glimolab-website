@@ -1,0 +1,53 @@
+---
+/**
+ * TeamGrid — team member cards in a responsive grid
+ * Each card shows an avatar placeholder, name, role, and short bio.
+ */
+interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+  initial: string;
+}
+
+const members: TeamMember[] = [
+  {
+    name: 'Creative Director',
+    role: 'Content Strategy & Quality',
+    bio: 'Oversees content strategy and quality across all productions, ensuring every video meets our cinematic standard.',
+    initial: 'CD',
+  },
+  {
+    name: 'AI Production Lead',
+    role: 'AI Tool Pipeline',
+    bio: 'Manages the AI tool pipeline — from model selection and prompt engineering to output optimization at scale.',
+    initial: 'AP',
+  },
+  {
+    name: 'Content Editor ×3',
+    role: 'Video Editing & QC',
+    bio: 'A team of three editors handling post-production, quality control, and platform-specific format optimization.',
+    initial: 'CE',
+  },
+  {
+    name: 'Localization Specialist',
+    role: 'Multi-Language Adaptation',
+    bio: 'Leads cultural adaptation and multi-language voiceover/subtitle pipelines for 30+ target languages.',
+    initial: 'LS',
+  },
+];
+---
+
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+  {members.map((member) => (
+    <div class="glass-card glass-card-hover p-6 text-center">
+      <!-- Avatar placeholder -->
+      <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-xl font-bold text-white">
+        {member.initial}
+      </div>
+      <h3 class="mt-4 text-base font-bold text-white">{member.name}</h3>
+      <p class="mt-1 text-sm font-medium text-accent">{member.role}</p>
+      <p class="mt-3 text-sm leading-relaxed text-text-muted">{member.bio}</p>
+    </div>
+  ))}
+</div>

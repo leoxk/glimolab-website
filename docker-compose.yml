@@ -1,0 +1,8 @@
+services:
+  glimolab-web:
+    build: .
+    image: glimolab-website:latest
+    container_name: glimolab-web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3090:80"

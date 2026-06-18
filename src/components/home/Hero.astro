@@ -1,0 +1,155 @@
+---
+/**
+ * GlimoLab Hero — full-screen hero with animated grid nodes
+ * Dark theme + blue gradient glow + network node SVG animation
+ */
+import { useTranslations, getLangFromUrl, localizePath } from '@i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Grid node positions for the animated SVG network
+const nodes = [
+  { x: 80, y: 60, color: '#0066FF' },
+  { x: 200, y: 120, color: '#00BCD4' },
+  { x: 340, y: 80, color: '#0066FF' },
+  { x: 480, y: 140, color: '#00BCD4' },
+  { x: 620, y: 60, color: '#0066FF' },
+  { x: 780, y: 100, color: '#00BCD4' },
+  { x: 920, y: 70, color: '#0066FF' },
+  { x: 1060, y: 130, color: '#00BCD4' },
+  { x: 120, y: 260, color: '#00BCD4' },
+  { x: 280, y: 320, color: '#0066FF' },
+  { x: 440, y: 280, color: '#00BCD4' },
+  { x: 600, y: 340, color: '#0066FF' },
+  { x: 760, y: 300, color: '#00BCD4' },
+  { x: 940, y: 360, color: '#0066FF' },
+  { x: 1100, y: 280, color: '#00BCD4' },
+  { x: 160, y: 480, color: '#0066FF' },
+  { x: 360, y: 520, color: '#00BCD4' },
+  { x: 540, y: 460, color: '#0066FF' },
+  { x: 720, y: 540, color: '#00BCD4' },
+  { x: 900, y: 480, color: '#0066FF' },
+  { x: 1080, y: 520, color: '#00BCD4' },
+  { x: 80, y: 640, color: '#00BCD4' },
+  { x: 260, y: 700, color: '#0066FF' },
+  { x: 460, y: 660, color: '#00BCD4' },
+  { x: 660, y: 720, color: '#0066FF' },
+  { x: 860, y: 680, color: '#00BCD4' },
+  { x: 1020, y: 700, color: '#0066FF' },
+];
+
+// Connections between nearby nodes
+const connections = [
+  [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7],
+  [0, 8], [1, 9], [2, 10], [3, 11], [4, 12], [5, 13], [6, 14],
+  [8, 9], [9, 10], [10, 11], [11, 12], [12, 13], [13, 14],
+  [8, 15], [9, 16], [10, 17], [11, 18], [12, 19], [13, 20],
+  [15, 16], [16, 17], [17, 18], [18, 19], [19, 20],
+  [15, 21], [16, 22], [17, 23], [18, 24], [19, 25], [20, 26],
+  [21, 22], [22, 23], [23, 24], [24, 25], [25, 26],
+];
+---
+
+<section class="relative flex min-h-screen items-center justify-center overflow-hidden">
+  <!-- Animated grid node network SVG -->
+  <svg
+    class="pointer-events-none absolute inset-0 h-full w-full opacity-60"
+    viewBox="0 0 1200 800"
+    preserveAspectRatio="xMidYMid slice"
+    aria-hidden="true"
+  >
+    <!-- Connection lines -->
+    {connections.map(([a, b]) => (
+      <line
+        x1={nodes[a].x}
+        y1={nodes[a].y}
+        x2={nodes[b].x}
+        y2={nodes[b].y}
+        stroke="url(#hero-conn-grad)"
+        stroke-width="1"
+        class="hero-node-line"
+      />
+    ))}
+    <!-- Nodes -->
+    {nodes.map((node) => (
+      <circle
+        cx={node.x}
+        cy={node.y}
+        r="2.5"
+        fill={node.color}
+        class="hero-node"
+      />
+    ))}
+    <defs>
+      <linearGradient id="hero-conn-grad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#0066FF" stop-opacity="0.6" />
+        <stop offset="100%" stop-color="#00BCD4" stop-opacity="0.6" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Blue radial glow -->
+  <div
+    class="pointer-events-none absolute left-1/2 top-1/4 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40"
+    style="background: radial-gradient(ellipse at center, rgba(0,102,255,0.25) 0%, rgba(0,188,212,0.08) 40%, transparent 70%);"
+  ></div>
+
+  <!-- Secondary glow bottom -->
+  <div
+    class="pointer-events-none absolute bottom-0 left-1/3 h-[400px] w-[600px] rounded-full opacity-20"
+    style="background: radial-gradient(circle, rgba(0,188,212,0.2) 0%, transparent 70%);"
+  ></div>
+
+  <!-- Content -->
+  <div class="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
+    <!-- Badge -->
+    <div class="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-dark-border bg-dark-surface/50 px-4 py-1.5 text-xs font-medium text-accent backdrop-blur">
+      <span class="relative flex h-2 w-2">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
+        <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+      </span>
+      {t('hero.badge')}
+    </div>
+
+    <!-- Title — very large -->
+    <h1
+      class="animate-fade-in-up mt-8 font-heading text-5xl font-bold leading-[1.08] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl"
+      style="animation-delay: 0.1s;"
+    >
+      {t('hero.title')}
+    </h1>
+
+    <!-- Subtitle -->
+    <p
+      class="animate-fade-in-up mt-6 max-w-2xl text-lg leading-relaxed text-text-muted sm:text-xl"
+      style="animation-delay: 0.2s;"
+    >
+      {t('hero.subtitle')}
+    </p>
+
+    <!-- CTAs -->
+    <div class="animate-fade-in-up mt-10 flex flex-col items-center gap-4 sm:flex-row" style="animation-delay: 0.3s;">
+      <a
+        href={localizePath('/portfolio', lang)}
+        class="group w-full rounded-xl bg-primary px-8 py-4 text-center text-base font-semibold text-white shadow-glow transition-all hover:bg-primary/90 hover:shadow-[0_0_50px_-8px_rgba(0,102,255,0.6)] sm:w-auto"
+      >
+        {t('hero.exploreWork')}
+        <span class="ml-2 inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
+      </a>
+      <a
+        href={localizePath('/contact', lang)}
+        class="w-full rounded-xl border border-dark-border px-8 py-4 text-center text-base font-semibold text-text-light backdrop-blur transition-all hover:border-primary/60 hover:text-white hover:shadow-glow sm:w-auto"
+      >
+        {t('hero.startProject')}
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="animate-bounce-down absolute bottom-8 left-1/2 -translate-x-1/2">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-text-muted opacity-60" aria-hidden="true">
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  </div>
+</section>

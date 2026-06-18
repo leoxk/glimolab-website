@@ -1,0 +1,17 @@
+---
+/**
+ * GlassCard — reusable glass morphism container
+ * Semi-transparent surface with backdrop blur and optional hover glow.
+ */
+interface Props {
+  class?: string;
+  hover?: boolean;
+  as?: string;
+}
+const { class: className = '', hover = false, as: tag = 'div' } = Astro.props;
+const Tag = tag;
+---
+
+<Tag class={`glass-card ${hover ? 'glass-card-hover' : ''} ${className}`}>
+  <slot />
+</Tag>

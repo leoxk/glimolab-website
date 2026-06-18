@@ -1,0 +1,313 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   GlimoLab Design System — Tailwind CSS 4.x theme configuration
+   AI video production company · dark-first, tech-forward aesthetic
+   ========================================================================== */
+
+@theme {
+  /* --- Brand palette (derived from logo: blue network-node pattern) --- */
+  --color-primary: #0066ff; /* Primary Blue */
+  --color-primary-dark: #1a237e; /* Dark Blue */
+  --color-primary-light: #e3f2fd; /* Light Blue */
+  --color-accent: #00bcd4; /* Accent Cyan */
+
+  /* --- Dark theme surfaces --- */
+  --color-dark-bg: #0a0a1a; /* Main background */
+  --color-dark-surface: #1e1e2e; /* Cards / elevated surfaces */
+  --color-dark-border: #2e2e3e; /* Subtle borders */
+
+  /* --- Neutrals --- */
+  --color-white: #ffffff;
+  --color-gray: #f5f7fa; /* Light gray background (light mode) */
+
+  /* --- Text --- */
+  --color-text-light: #e2e8f0; /* Primary text on dark */
+  --color-text-muted: #94a3b8; /* Secondary / muted text */
+
+  /* --- Typography --- */
+  --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* --- Custom shadows --- */
+  --shadow-glow: 0 0 40px -10px rgba(0, 102, 255, 0.5);
+  --shadow-card: 0 8px 32px -8px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   Base styles
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-dark-bg);
+  color: var(--color-text-light);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-dark-bg);
+  color: var(--color-text-light);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Custom scrollbar — dark themed */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-dark-border);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-dark);
+}
+
+/* Selection color */
+::selection {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Focus ring for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Utility: gradient text */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Utility: subtle grid background for hero sections */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(0, 102, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 102, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Utility: glass morphism card */
+.glass {
+  background: rgba(30, 30, 46, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(46, 46, 62, 0.6);
+}
+
+/* Utility: glow border on hover */
+.glow-border {
+  position: relative;
+  overflow: hidden;
+}
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.glow-border:hover::before {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+/* Animation: fade-in on load */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out both;
+}
+
+/* ==========================================================================
+   Reusable component utilities
+   ========================================================================== */
+
+/* Glass morphism card — semi-transparent + blur + glowing border on hover */
+.glass-card {
+  background: rgba(30, 30, 46, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(46, 46, 62, 0.6);
+  border-radius: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.glass-card-hover:hover {
+  border-color: rgba(0, 102, 255, 0.4);
+  box-shadow: 0 0 40px -10px rgba(0, 102, 255, 0.3);
+  transform: translateY(-4px);
+}
+
+/* Scroll reveal animation — toggled by IntersectionObserver */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Line clamp utility (Tailwind v4 may not include this by default) */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-fade-in-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Animation: scroll-triggered fade-in */
+@keyframes scroll-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for children */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+
+/* Animation: Hero grid nodes */
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.3; r: 2; }
+  50% { opacity: 1; r: 3.5; }
+}
+
+@keyframes node-drift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(5px, -8px); }
+  50% { transform: translate(-3px, 5px); }
+  75% { transform: translate(8px, 3px); }
+  100% { transform: translate(0, 0); }
+}
+
+.hero-node {
+  animation: node-pulse 3s ease-in-out infinite;
+}
+
+.hero-node:nth-child(2n) { animation-delay: 0.5s; }
+.hero-node:nth-child(3n) { animation-delay: 1s; }
+.hero-node:nth-child(5n) { animation-delay: 1.5s; }
+.hero-node:nth-child(7n) { animation-delay: 2s; }
+
+.hero-node-line {
+  opacity: 0.15;
+  transition: opacity 0.3s ease;
+}
+
+/* Animation: scroll indicator bounce */
+@keyframes bounce-down {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+  40% { transform: translateY(8px) translateX(-50%); }
+  60% { transform: translateY(4px) translateX(-50%); }
+}
+
+.animate-bounce-down {
+  animation: bounce-down 2s ease-in-out infinite;
+}
+
+/* Animation: stats counter glow */
+@keyframes stat-glow {
+  0%, 100% { text-shadow: 0 0 20px rgba(0, 102, 255, 0.3); }
+  50% { text-shadow: 0 0 40px rgba(0, 102, 255, 0.6); }
+}
+
+.stat-glow {
+  animation: stat-glow 3s ease-in-out infinite;
+}
+
+/* Animation: process step connector pulse */
+@keyframes line-pulse {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.line-animated {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 50%, var(--color-primary) 100%);
+  background-size: 200% 100%;
+  animation: line-pulse 3s linear infinite;
+}
+
+/* Animation: quote mark float */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}

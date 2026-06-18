@@ -1,0 +1,144 @@
+---
+/**
+ * Service: E-commerce Content
+ * Hero → Features → Platforms → Process → CTA
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import CTASection from '@components/ui/CTASection.astro';
+import { localizePath, getLangFromUrl } from '@i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+
+const features = [
+  { title: 'Platform-Specific Formats', description: 'Each platform has unique requirements — aspect ratios, duration limits, and content guidelines. We handle it all.', icon: '📐' },
+  { title: 'A/B Testing Variants', description: 'Generate multiple creative variants for testing — different hooks, CTAs, and visual styles — to find what converts best.', icon: '🧪' },
+  { title: 'Batch Production', description: 'Scale to 10-20 videos per day with our AI pipeline, perfect for mega sales, product launches, and seasonal campaigns.', icon: '⚡' },
+  { title: 'Multi-Platform Export', description: 'One source video, exported and optimized for Shopee, TikTok Shop, Lazada, and more — automatically.', icon: '🔄' },
+];
+
+const platforms = [
+  { name: 'Shopee', description: 'Product showcase videos for listings and Shopee Video' },
+  { name: 'TikTok Shop', description: 'Short-form shopping videos optimized for the feed' },
+  { name: 'Lazada', description: 'Brand store videos and product detail page content' },
+  { name: 'Instagram', description: 'Reels and Stories content for social commerce' },
+];
+
+const steps = [
+  { step: '01', title: 'Product Intake', description: 'Share product images, specs, and key selling points. We ingest everything into our AI pipeline.' },
+  { step: '02', title: 'Creative Generation', description: 'AI generates scripts, voiceovers, and video sequences for each product — customized per platform.' },
+  { step: '03', title: 'Batch Rendering', description: 'We render all variants in parallel, producing 10-20 videos per day with consistent quality.' },
+  { step: '04', title: 'Platform Delivery', description: 'Videos delivered in platform-ready formats with optimized thumbnails and metadata.' },
+];
+---
+
+<BaseLayout
+  title="E-commerce Content — GlimoLab Services"
+  description="Platform-optimized video content for Shopee, TikTok Shop, and Lazada with A/B testing variants and batch production."
+>
+  <!-- ============ Hero ============ -->
+  <section class="relative overflow-hidden">
+    <div class="bg-grid pointer-events-none absolute inset-0"></div>
+    <div
+      class="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-3xl"
+      style="background: radial-gradient(circle, rgba(0,102,255,0.15) 0%, transparent 70%);"
+    >
+    </div>
+
+    <div class="relative mx-auto max-w-4xl px-4 py-24 sm:px-6 lg:py-32">
+      <a href={localizePath('/services', lang)} class="inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        All Services
+      </a>
+
+      <div class="animate-fade-in-up mt-6 inline-flex items-center gap-2 rounded-full border border-dark-border bg-dark-surface/50 px-4 py-1.5 text-xs font-medium text-accent backdrop-blur">
+        E-commerce Content
+      </div>
+
+      <h1 class="animate-fade-in-up mt-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl" style="animation-delay: 0.1s;">
+        E-commerce Content
+      </h1>
+
+      <p class="animate-fade-in-up mt-6 max-w-2xl text-lg leading-relaxed text-text-muted" style="animation-delay: 0.2s;">
+        Platform-optimized video content for Shopee, TikTok Shop, and Lazada — with A/B testing variants and batch production of 10-20 videos per day.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ Features ============ -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Capabilities"
+        title="What We Offer"
+        subtitle="High-volume, platform-optimized video production built for e-commerce."
+      />
+      <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {features.map((feature) => (
+          <div class="glass-card glass-card-hover flex gap-4 p-6" data-reveal>
+            <div class="text-3xl shrink-0">{feature.icon}</div>
+            <div>
+              <h3 class="text-base font-bold text-white">{feature.title}</h3>
+              <p class="mt-1 text-sm leading-relaxed text-text-muted">{feature.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Platforms ============ -->
+  <section class="border-t border-dark-border py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Supported Platforms"
+        title="Where Your Videos Live"
+        subtitle="We create content tailored to the unique requirements of each platform."
+      />
+      <div class="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4" data-reveal>
+        {platforms.map((platform) => (
+          <div class="glass-card glass-card-hover p-6 text-center">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-accent/10 ring-1 ring-inset ring-primary/20">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+            </div>
+            <h3 class="mt-3 text-sm font-bold text-white">{platform.name}</h3>
+            <p class="mt-1 text-xs leading-relaxed text-text-muted">{platform.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Process ============ -->
+  <section class="border-t border-dark-border py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="How It Works"
+        title="Batch Production Process"
+        subtitle="From product intake to platform delivery — streamlined for scale."
+      />
+      <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {steps.map((step) => (
+          <div class="glass-card glass-card-hover relative p-6" data-reveal>
+            <span class="font-heading text-4xl font-bold text-accent/20">{step.step}</span>
+            <h3 class="mt-2 text-base font-bold text-white">{step.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-text-muted">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <CTASection
+    title="Need High-Volume Video Content?"
+    description="Scale your e-commerce video production with AI-powered batch creation."
+    primaryLabel="Start a Project"
+    secondaryLabel="View Portfolio"
+  />
+</BaseLayout>
