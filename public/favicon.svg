@@ -1,18 +1,48 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Rounded square background -->
-  <rect width="48" height="48" rx="10" fill="#0A0A1A" />
-  <!-- Network node pattern forming a "G" shape -->
-  <circle cx="24" cy="24" r="20" stroke="#0066FF" stroke-width="1.5" opacity="0.25" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- G-path connections (outer ring) -->
+  <g stroke-linecap="round">
+    <line x1="29" y1="8" x2="41" y2="24" stroke="#0066FF" stroke-width="1" opacity="0.6"/>
+    <line x1="41" y1="24" x2="39" y2="33" stroke="#0088DD" stroke-width="1" opacity="0.6"/>
+    <line x1="39" y1="33" x2="33" y2="40" stroke="#0099DD" stroke-width="1" opacity="0.6"/>
+    <line x1="33" y1="40" x2="24" y2="42" stroke="#00AADD" stroke-width="1" opacity="0.6"/>
+    <line x1="24" y1="42" x2="15" y2="40" stroke="#00BCD4" stroke-width="1" opacity="0.6"/>
+    <line x1="15" y1="40" x2="9" y2="33" stroke="#00BCD4" stroke-width="1" opacity="0.6"/>
+    <line x1="9" y1="33" x2="7" y2="24" stroke="#0099DD" stroke-width="1" opacity="0.6"/>
+    <line x1="7" y1="24" x2="9" y2="15" stroke="#0088DD" stroke-width="1" opacity="0.6"/>
+    <line x1="9" y1="15" x2="15" y2="8" stroke="#0077CC" stroke-width="1" opacity="0.6"/>
+    <line x1="15" y1="8" x2="24" y2="6" stroke="#0066FF" stroke-width="1" opacity="0.6"/>
+    <line x1="24" y1="6" x2="29" y2="8" stroke="#0066FF" stroke-width="1" opacity="0.6"/>
+    <!-- Crossbar -->
+    <line x1="41" y1="24" x2="34" y2="24" stroke="#0088DD" stroke-width="1" opacity="0.6"/>
+    <line x1="34" y1="24" x2="24" y2="24" stroke="#0077CC" stroke-width="1" opacity="0.6"/>
+    <!-- Spokes to center -->
+    <line x1="24" y1="6" x2="24" y2="24" stroke="#0066FF" stroke-width="0.6" opacity="0.3"/>
+    <line x1="15" y1="8" x2="24" y2="24" stroke="#0066FF" stroke-width="0.6" opacity="0.3"/>
+    <line x1="7" y1="24" x2="24" y2="24" stroke="#0099DD" stroke-width="0.6" opacity="0.3"/>
+    <line x1="15" y1="40" x2="24" y2="24" stroke="#00BCD4" stroke-width="0.6" opacity="0.3"/>
+    <line x1="33" y1="40" x2="24" y2="24" stroke="#00BCD4" stroke-width="0.6" opacity="0.3"/>
+  </g>
   <!-- Outer nodes -->
-  <circle cx="14" cy="14" r="3" fill="#0066FF" />
-  <circle cx="34" cy="14" r="3" fill="#00BCD4" />
-  <circle cx="34" cy="34" r="3" fill="#0066FF" />
-  <circle cx="14" cy="34" r="3" fill="#00BCD4" />
-  <!-- Center node -->
-  <circle cx="24" cy="24" r="4" fill="#0066FF" />
-  <!-- Connections -->
-  <line x1="14" y1="14" x2="24" y2="24" stroke="#0066FF" stroke-width="1.5" />
-  <line x1="34" y1="14" x2="24" y2="24" stroke="#00BCD4" stroke-width="1.5" />
-  <line x1="34" y1="34" x2="24" y2="24" stroke="#0066FF" stroke-width="1.5" />
-  <line x1="14" y1="34" x2="24" y2="24" stroke="#00BCD4" stroke-width="1.5" />
+  <circle cx="24" cy="6" r="2.2" fill="#0066FF"/>
+  <circle cx="29" cy="8" r="2.2" fill="#0066FF"/>
+  <circle cx="41" cy="24" r="2.2" fill="#0088DD"/>
+  <circle cx="39" cy="33" r="2.2" fill="#0099DD"/>
+  <circle cx="33" cy="40" r="2.2" fill="#00AADD"/>
+  <circle cx="24" cy="42" r="2.2" fill="#00BCD4"/>
+  <circle cx="15" cy="40" r="2.2" fill="#00BCD4"/>
+  <circle cx="9" cy="33" r="2.2" fill="#00AADD"/>
+  <circle cx="7" cy="24" r="2.2" fill="#0099DD"/>
+  <circle cx="9" cy="15" r="2.2" fill="#0088DD"/>
+  <circle cx="15" cy="8" r="2.2" fill="#0066FF"/>
+  <!-- Crossbar node -->
+  <circle cx="34" cy="24" r="2" fill="#0088DD"/>
+  <!-- Center glow + node -->
+  <circle cx="24" cy="24" r="7" fill="url(#fg)" opacity="0.35"/>
+  <circle cx="24" cy="24" r="3.5" fill="#0066FF"/>
+  <defs>
+    <radialGradient id="fg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#66D9FF" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0066FF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
 </svg>
