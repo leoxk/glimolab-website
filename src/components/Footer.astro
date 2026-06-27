@@ -5,8 +5,7 @@
  * Social icons + copyright bar at the bottom
  */
 import { useTranslations, getLangFromUrl, localizePath } from '@i18n/utils';
-import { Image } from 'astro:assets';
-import logoIcon from '@assets/images/glimolab-logo-72.png';
+import Logo from '@components/Logo.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -56,9 +55,8 @@ const socials = [
     <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
       <!-- Column 1: Company intro -->
       <div class="lg:pr-8">
-        <a href={localizePath('/', lang)} class="flex items-center gap-2 text-white" aria-label="GlimoLab home">
-          <Image src={logoIcon} width={30} height={32} alt="GlimoLab" class="shrink-0 h-8 w-auto" />
-          <span class="font-heading text-lg font-bold">Glimo<span class="text-primary">Lab</span></span>
+        <a href={localizePath('/', lang)} class="inline-flex items-center text-white transition-opacity hover:opacity-80" aria-label="GlimoLab home">
+          <Logo variant="footer" />
         </a>
         <p class="mt-4 text-sm leading-relaxed text-text-muted">
           {t('footer.aboutText')}

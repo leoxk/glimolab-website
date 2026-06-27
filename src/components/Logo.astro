@@ -1,0 +1,22 @@
+---
+interface Props {
+  variant?: 'header' | 'footer';
+}
+
+const { variant = 'header' } = Astro.props;
+
+const classes = {
+  header:
+    'block h-10 w-[150px] rounded-md bg-white object-contain shadow-sm sm:w-[170px]',
+  footer:
+    'block h-12 w-[180px] rounded-md bg-white object-contain shadow-sm',
+};
+---
+
+<img
+  src="/glimo-lab-logo-horizontal.png"
+  alt="Glimo Lab"
+  width="1700"
+  height="430"
+  class={classes[variant]}
+/>

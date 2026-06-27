@@ -1,0 +1,4 @@
+interface:
+  display_name: "GlimoLab Website"
+  short_description: "Maintain and update the GlimoLab Astro website"
+  default_prompt: "Use $glimolab-website to update the GlimoLab website while preserving its Astro, i18n, branding, and deployment conventions."
