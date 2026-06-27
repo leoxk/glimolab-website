@@ -67,40 +67,15 @@ const currentPath = Astro.url.pathname.replace(`/${lang}`, '') || '/';
       <!-- Language switcher -->
       <div class="relative hidden sm:block" id="lang-switcher">
         <button
-          type="button"
-          id="lang-toggle"
-          class="flex items-center gap-1 rounded-lg border border-dark-border px-2.5 py-2 text-sm text-text-light transition-colors hover:border-primary"
-          aria-haspopup="true"
-          aria-expanded="false"
+          class="flex items-center gap-1 rounded-lg border border-dark-border px-2.5 py-2 text-sm text-text-light cursor-default"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="12" cy="12" r="10" />
             <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
           </svg>
           <span class="uppercase">{lang}</span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="m6 9 6 6 6-6" />
-          </svg>
         </button>
-        <ul
-          id="lang-menu"
-          class="invisible absolute right-0 mt-2 w-40 overflow-hidden rounded-lg border border-dark-border bg-dark-surface opacity-0 shadow-card transition-all duration-200"
-          role="menu"
-        >
-          {(Object.entries(languages) as [Lang, string][]).map(([code, label]) => (
-            <li>
-              <a
-                href={localizePath(currentPath, code)}
-                class={`flex items-center px-4 py-2.5 text-sm transition-colors hover:bg-dark-border ${
-                  code === lang ? 'text-primary' : 'text-text-light'
-                }`}
-                role="menuitem"
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
+
       </div>
 
       <!-- CTA button -->
@@ -159,16 +134,20 @@ const currentPath = Astro.url.pathname.replace(`/${lang}`, '') || '/';
         <!-- Language switcher (mobile) -->
         <div class="flex flex-wrap gap-2">
           {(Object.entries(languages) as [Lang, string][]).map(([code, label]) => (
-            <a
-              href={localizePath(currentPath, code)}
-              class={`rounded-md border px-3 py-1.5 text-xs font-medium uppercase transition-colors ${
-                code === lang
-                  ? 'border-primary bg-primary/10 text-primary'
-                  : 'border-dark-border text-text-muted hover:text-white'
-              }`}
-            >
-              {code}
-            </a>
+            code === lang ? (
+              <span
+                class="rounded-md border border-primary bg-primary/10 px-3 py-1.5 text-xs font-medium uppercase text-primary cursor-default"
+              >
+                {code}
+              </span>
+            ) : (
+              <span
+                class="rounded-md border border-dark-border px-3 py-1.5 text-xs font-medium uppercase text-text-muted/50 cursor-not-allowed"
+                title={`${label} — coming soon`}
+              >
+                {code}
+              </span>
+            )
           ))}
         </div>
       </li>
@@ -216,30 +195,5 @@ const currentPath = Astro.url.pathname.replace(`/${lang}`, '') || '/';
     iconClose?.classList.toggle('hidden');
   });
 
-  // --- Language dropdown ---
-  const langToggle = document.getElementById('lang-toggle');
-  const langMenu = document.getElementById('lang-menu');
-  const langSwitcher = document.getElementById('lang-switcher');
-  langToggle?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const expanded = langToggle.getAttribute('aria-expanded') === 'true';
-    langToggle.setAttribute('aria-expanded', String(!expanded));
-    if (langMenu) {
-      if (expanded) {
-        langMenu.classList.add('invisible', 'opacity-0');
-        langMenu.classList.remove('visible', 'opacity-100');
-      } else {
-        langMenu.classList.remove('invisible', 'opacity-0');
-        langMenu.classList.add('visible', 'opacity-100');
-      }
-    }
-  });
-  // Close language menu on outside click
-  document.addEventListener('click', (e) => {
-    if (langSwitcher && !langSwitcher.contains(e.target as Node)) {
-      langToggle?.setAttribute('aria-expanded', 'false');
-      langMenu?.classList.add('invisible', 'opacity-0');
-      langMenu?.classList.remove('visible', 'opacity-100');
-    }
-  });
+
 </script>
