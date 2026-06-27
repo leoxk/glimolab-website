@@ -1,7 +1,7 @@
 ---
 /**
- * GlimoLab Hero — full-screen hero with animated grid nodes
- * Dark theme + blue gradient glow + network node SVG animation
+ * GlimoLab Hero — full-screen hero with animated grid nodes + video background
+ * Dark theme + blue gradient glow + network node SVG animation + hero video
  */
 import { useTranslations, getLangFromUrl, localizePath } from '@i18n/utils';
 
@@ -52,9 +52,28 @@ const connections = [
 ---
 
 <section class="relative flex min-h-screen items-center justify-center overflow-hidden">
+  <!-- Hero background video (base layer) -->
+  <video
+    class="pointer-events-none absolute inset-0 h-full w-full object-cover"
+    autoplay
+    muted
+    loop
+    playsinline
+    poster="/hero-bg-poster.jpg"
+    aria-hidden="true"
+  >
+    <source src="/hero-bg-video.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Dark overlay for text readability -->
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="background: radial-gradient(ellipse at 50% 35%, rgba(0,102,255,0.22), transparent 48%), linear-gradient(180deg, rgba(10,10,26,0.58) 0%, rgba(10,10,26,0.78) 100%);"
+  ></div>
+
   <!-- Animated grid node network SVG -->
   <svg
-    class="pointer-events-none absolute inset-0 h-full w-full opacity-60"
+    class="pointer-events-none absolute inset-0 h-full w-full opacity-40"
     viewBox="0 0 1200 800"
     preserveAspectRatio="xMidYMid slice"
     aria-hidden="true"
@@ -91,13 +110,13 @@ const connections = [
 
   <!-- Blue radial glow -->
   <div
-    class="pointer-events-none absolute left-1/2 top-1/4 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40"
+    class="pointer-events-none absolute left-1/2 top-1/4 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30"
     style="background: radial-gradient(ellipse at center, rgba(0,102,255,0.25) 0%, rgba(0,188,212,0.08) 40%, transparent 70%);"
   ></div>
 
   <!-- Secondary glow bottom -->
   <div
-    class="pointer-events-none absolute bottom-0 left-1/3 h-[400px] w-[600px] rounded-full opacity-20"
+    class="pointer-events-none absolute bottom-0 left-1/3 h-[400px] w-[600px] rounded-full opacity-15"
     style="background: radial-gradient(circle, rgba(0,188,212,0.2) 0%, transparent 70%);"
   ></div>
 
