@@ -1,7 +1,6 @@
 services:
   glimolab-web:
     build: .
-    image: glimolab-website:latest
     container_name: glimolab-web
     restart: unless-stopped
     ports:
