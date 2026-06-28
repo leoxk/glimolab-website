@@ -27,7 +27,6 @@ export const ui = {
     'nav.services': 'Services',
     'nav.portfolio': 'Portfolio',
     'nav.pricing': 'Pricing',
-    'nav.blog': 'Blog',
     'nav.contact': 'Contact',
 
     // --- Header / CTA ---
@@ -177,15 +176,6 @@ export const ui = {
     'faq.q6': 'What video formats do you deliver?',
     'faq.a6': 'We deliver standard video formats such as MP4 and MOV, with aspect ratios and exports prepared for the target platform, including social media, web, e-commerce, and presentation use.',
 
-    // --- Blog Page ---
-    'blog.badge': 'Blog',
-    'blog.title': 'Insights & Updates',
-    'blog.subtitle': 'Expert perspectives on AI video production, content localization, and digital marketing.',
-    'blog.readMore': 'Read More',
-    'blog.noPosts': 'No articles yet. Check back soon!',
-    'blog.backToBlog': 'Back to Blog',
-    'blog.relatedPosts': 'Related Articles',
-
     // --- Contact Page ---
     'contact.badge': 'Get in Touch',
     'contact.title': "Let's Create Something Amazing",
@@ -219,7 +209,6 @@ export const ui = {
     'nav.services': 'Mga Serbisyo',
     'nav.portfolio': 'Portfolio',
     'nav.pricing': 'Presyo',
-    'nav.blog': 'Blog',
     'nav.contact': 'Makipag-ugnayan',
 
     // --- Header / CTA ---
@@ -369,15 +358,6 @@ export const ui = {
     'faq.q6': 'Anong video formats ang idinedeliver ninyo?',
     'faq.a6': 'Nagde-deliver kami ng standard video formats tulad ng MP4 at MOV, kasama ang aspect ratios at exports na handa para sa target platform, kabilang ang social media, web, e-commerce, at presentation use.',
 
-    // --- Blog Page ---
-    'blog.badge': 'Blog',
-    'blog.title': 'Mga Insight at Update',
-    'blog.subtitle': 'Mga dalubhasang pananaw sa AI video production, content lokalisasyon, at digital marketing.',
-    'blog.readMore': 'Magbasa Pa',
-    'blog.noPosts': 'Wala pang mga artikulo. Subukan muli mamaya!',
-    'blog.backToBlog': 'Bumalik sa Blog',
-    'blog.relatedPosts': 'Kaugnay na Artikulo',
-
     // --- Contact Page ---
     'contact.badge': 'Makipag-ugnayan',
     'contact.title': 'Tayo ay Lumikha ng Kamangha-mangha',
@@ -411,7 +391,6 @@ export const ui = {
     'nav.services': 'Layanan',
     'nav.portfolio': 'Portofolio',
     'nav.pricing': 'Harga',
-    'nav.blog': 'Blog',
     'nav.contact': 'Kontak',
 
     // --- Header / CTA ---
@@ -560,15 +539,6 @@ export const ui = {
     'faq.a5': 'USD adalah mata uang quote kami. PHP dan IDR hanya ditampilkan sebagai reference conversions, menggunakan sekitar 1 USD ke PHP 61 dan IDR 17,900. Proposal formal dapat menggunakan kurs terbaru.',
     'faq.q6': 'Format video apa saja yang dikirimkan?',
     'faq.a6': 'Kami mengirim format video standar seperti MP4 dan MOV, dengan aspect ratio dan export yang disiapkan untuk target platform, termasuk social media, web, e-commerce, dan presentation use.',
-
-    // --- Blog Page ---
-    'blog.badge': 'Blog',
-    'blog.title': 'Wawasan & Pembaruan',
-    'blog.subtitle': 'Perspektif ahli tentang produksi video AI, lokalisasi konten, dan pemasaran digital.',
-    'blog.readMore': 'Baca Selengkapnya',
-    'blog.noPosts': 'Belum ada artikel. Periksa kembali nanti!',
-    'blog.backToBlog': 'Kembali ke Blog',
-    'blog.relatedPosts': 'Artikel Terkait',
 
     // --- Contact Page ---
     'contact.badge': 'Hubungi Kami',
