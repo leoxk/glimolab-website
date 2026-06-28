@@ -45,12 +45,18 @@ html {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
+  overflow-x: clip;
+  overscroll-behavior-y: none;
 }
 
 body {
   background-color: var(--color-dark-bg);
   color: var(--color-text-light);
   min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: clip;
+  overscroll-behavior-y: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
