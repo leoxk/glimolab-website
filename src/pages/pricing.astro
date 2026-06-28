@@ -1,7 +1,7 @@
 ---
 /**
  * GlimoLab Pricing Page
- * Three-tier pricing cards + feature comparison + FAQ accordion
+ * Public single-project and monthly package pricing for AI-assisted commercial video.
  */
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { useTranslations, getLangFromUrl, localizePath, type UIKey } from '@i18n/utils';
@@ -9,97 +9,117 @@ import { useTranslations, getLangFromUrl, localizePath, type UIKey } from '@i18n
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const plans = [
+const projectPlans = [
   {
-    name: 'Starter',
-    price: '$299',
-    period: '/month',
-    features: [
-      'Up to 10 videos/month',
-      '1080p quality',
-      '2 languages included',
-      '48h turnaround',
-      'Email support',
-    ],
-    cta: 'cta.getStarted',
+    name: 'Studio',
+    standardPrice: '$720',
+    launchPrice: '$360',
+    reference: 'PHP 22K / IDR 6.4M',
+    discountTag: 'First Video 50% OFF',
     highlighted: false,
+    primarySpecs: [
+      ['pricing.spec.resolution', '720P/1080P vertical'],
+      ['pricing.spec.length', '15-30 sec'],
+    ],
+    decisionPoints: [
+      ['pricing.spec.localization', 'pricing.localization.englishOnly'],
+      ['pricing.spec.digitalHuman', 'pricing.digitalHuman.notIncluded'],
+    ],
   },
   {
-    name: 'Professional',
-    price: '$799',
-    period: '/month',
-    features: [
-      'Up to 30 videos/month',
-      '4K quality',
-      '5 languages included',
-      '24h turnaround',
-      'Priority support',
-      'Custom branding',
-    ],
-    cta: 'cta.getStarted',
+    name: 'Signature',
+    standardPrice: '$1,280',
+    launchPrice: '$640',
+    reference: 'PHP 39K / IDR 11.5M',
+    discountTag: 'First Video 50% OFF',
     highlighted: true,
-    badge: 'POPULAR',
+    badge: 'pricing.badgePopular',
+    primarySpecs: [
+      ['pricing.spec.resolution', '1080P/2K horizontal'],
+      ['pricing.spec.length', '30-90 sec'],
+    ],
+    decisionPoints: [
+      ['pricing.spec.localization', 'pricing.localization.included'],
+      ['pricing.spec.digitalHuman', 'pricing.digitalHuman.included'],
+    ],
   },
   {
-    name: 'Enterprise',
-    price: 'Custom',
-    period: '',
-    features: [
-      'Unlimited videos',
-      '4K+ quality',
-      '30+ languages',
-      'Same-day turnaround',
-      'Dedicated account manager',
-      'API access',
-      'White-label options',
-    ],
-    cta: 'cta.contactSales',
+    name: 'Cinematic',
+    launchPrice: 'Contact Sales',
+    reference: 'Custom 4K project quote',
+    contactOnly: true,
     highlighted: false,
+    primarySpecs: [
+      ['pricing.spec.resolution', '4K cinematic'],
+      ['pricing.spec.length', '60-180 sec'],
+    ],
+    decisionPoints: [
+      ['pricing.spec.localization', 'pricing.localization.included'],
+      ['pricing.spec.digitalHuman', 'pricing.digitalHuman.included'],
+    ],
   },
 ];
 
-const comparisonFeatures = [
-  { name: 'Videos per month', starter: '10', professional: '30', enterprise: 'Unlimited' },
-  { name: 'Video quality', starter: '1080p', professional: '4K', enterprise: '4K+' },
-  { name: 'Languages', starter: '2', professional: '5', enterprise: '30+' },
-  { name: 'Turnaround time', starter: '48h', professional: '24h', enterprise: 'Same day' },
-  { name: 'Support level', starter: 'Email', professional: 'Priority', enterprise: 'Dedicated manager' },
-  { name: 'Custom branding', starter: false, professional: true, enterprise: true },
-  { name: 'API access', starter: false, professional: false, enterprise: true },
-  { name: 'White-label', starter: false, professional: false, enterprise: true },
+const monthlyPackages = [
+  {
+    name: 'Starter',
+    monthlyPrice: '$1,800/mo',
+    reference: 'PHP 110K / IDR 32.2M',
+    primarySpecs: [
+      ['pricing.spec.resolution', '720P/1080P vertical'],
+      ['pricing.spec.length', '15-30 sec each'],
+      ['pricing.spec.quantity', '4 videos/mo'],
+    ],
+    decisionPoints: [
+      ['pricing.spec.localization', 'pricing.localization.englishOnly'],
+      ['pricing.spec.digitalHuman', 'pricing.digitalHuman.monthlyAddOn'],
+    ],
+  },
+  {
+    name: 'Premium',
+    monthlyPrice: '$4,800/mo',
+    reference: 'PHP 293K / IDR 85.9M',
+    highlighted: true,
+    primarySpecs: [
+      ['pricing.spec.resolution', '1080P/2K horizontal'],
+      ['pricing.spec.length', '30-90 sec each'],
+      ['pricing.spec.quantity', '6 videos/mo'],
+    ],
+    decisionPoints: [
+      ['pricing.spec.localization', 'pricing.localization.included'],
+      ['pricing.spec.digitalHuman', 'pricing.digitalHuman.monthlyContinuity'],
+    ],
+  },
+  {
+    name: 'Flagship',
+    monthlyPrice: 'Contact Sales',
+    reference: 'Custom 4K monthly quote',
+    contactOnly: true,
+    primarySpecs: [
+      ['pricing.spec.resolution', '4K cinematic'],
+      ['pricing.spec.length', '60-180 sec each'],
+      ['pricing.spec.quantity', '8 videos/mo'],
+    ],
+    decisionPoints: [
+      ['pricing.spec.localization', 'pricing.localization.included'],
+      ['pricing.spec.digitalHuman', 'pricing.digitalHuman.monthlyCustom'],
+    ],
+  },
 ];
 
 const faqs = [
-  {
-    q: 'faq.q1',
-    a: 'faq.a1',
-  },
-  {
-    q: 'faq.q2',
-    a: 'faq.a2',
-  },
-  {
-    q: 'faq.q3',
-    a: 'faq.a3',
-  },
-  {
-    q: 'faq.q4',
-    a: 'faq.a4',
-  },
-  {
-    q: 'faq.q5',
-    a: 'faq.a5',
-  },
-  {
-    q: 'faq.q6',
-    a: 'faq.a6',
-  },
+  { q: 'faq.q1', a: 'faq.a1' },
+  { q: 'faq.q2', a: 'faq.a2' },
+  { q: 'faq.q3', a: 'faq.a3' },
+  { q: 'faq.q4', a: 'faq.a4' },
+  { q: 'faq.q5', a: 'faq.a5' },
+  { q: 'faq.q6', a: 'faq.a6' },
 ];
 ---
 
 <BaseLayout
   title="Pricing — GlimoLab"
-  description="Simple, transparent pricing for AI-powered video production. Choose the plan that fits your content needs."
+  description="Premium AI-assisted commercial video production pricing for vertical social videos, horizontal corporate films, and 4K cinematic TVC work."
 >
   <!-- Hero -->
   <section class="relative overflow-hidden">
@@ -126,121 +146,162 @@ const faqs = [
       <p class="mt-4 text-lg text-text-muted">
         {t('pricing.subtitle')}
       </p>
+      <p class="mt-5 inline-flex rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-accent">
+        {t('pricing.launchNote')}
+      </p>
     </div>
   </section>
 
-  <!-- Pricing Cards -->
-  <section class="relative -mt-8 pb-24">
+  <!-- Single Project Pricing -->
+  <section class="relative -mt-8 pb-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10 text-center">
+        <h2 class="font-heading text-3xl font-bold text-white">
+          {t('pricing.singleTitle')}
+        </h2>
+        <p class="mx-auto mt-3 max-w-2xl text-text-muted">
+          {t('pricing.singleSubtitle')}
+        </p>
+      </div>
       <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-        {plans.map((plan) => (
+        {projectPlans.map((plan) => (
           <div
             class:list={[
               'relative flex flex-col rounded-2xl border p-8 transition-all',
               plan.highlighted
-                ? 'border-primary bg-dark-surface shadow-glow scale-[1.02] md:scale-105 z-10'
+                ? 'z-10 scale-[1.02] border-primary bg-dark-surface shadow-glow md:scale-105'
                 : 'border-dark-border bg-dark-surface/50 hover:border-primary/50',
             ]}
           >
             {plan.badge && (
               <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-bold uppercase tracking-wider text-white">
-                {plan.badge}
+                {t(plan.badge as UIKey)}
               </span>
             )}
-            <h3 class="font-heading text-lg font-semibold text-white">{plan.name}</h3>
-            <div class="mt-4 flex items-baseline gap-1">
-              <span class="text-4xl font-bold text-white">{plan.price}</span>
-              {plan.period && (
-                <span class="text-text-muted">{plan.period}</span>
-              )}
+            {plan.discountTag && (
+              <span class="absolute right-4 top-4 rounded-full bg-red-600 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-red-600/25">
+                {plan.discountTag}
+              </span>
+            )}
+            <div class="flex items-center justify-between gap-4">
+              <h3 class="font-heading text-xl font-semibold text-white">{plan.name}</h3>
             </div>
-            <ul class="mt-8 flex-1 space-y-4">
-              {plan.features.map((feature) => (
-                <li class="flex items-start gap-3">
-                  <svg class="mt-0.5 h-5 w-5 shrink-0 text-primary" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                  </svg>
-                  <span class="text-sm text-text-muted">{feature}</span>
-                </li>
+            <div class="mt-6">
+              <p class="text-xs font-semibold uppercase tracking-widest text-text-muted">
+                {plan.contactOnly ? 'Custom Quote' : t('pricing.launchPrice')}
+              </p>
+              <div class="mt-2 flex items-end gap-3">
+                {plan.contactOnly ? (
+                  <a
+                    href={localizePath('/contact', lang)}
+                    class="inline-flex rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white shadow-glow transition-all hover:bg-primary/90"
+                  >
+                    Contact Sales
+                  </a>
+                ) : (
+                  <>
+                    <span class="text-4xl font-bold text-white">{plan.launchPrice}</span>
+                    {plan.standardPrice && (
+                      <span class="pb-1 text-sm text-text-muted line-through">{plan.standardPrice}</span>
+                    )}
+                  </>
+                )}
+              </div>
+              <p class="mt-2 text-xs text-text-muted">{plan.reference}</p>
+            </div>
+            <div class="mt-8 grid grid-cols-1 gap-3">
+              {plan.primarySpecs.map(([label, value]) => (
+                <div class="rounded-xl border border-primary/20 bg-primary/10 p-4">
+                  <p class="text-xs font-medium text-text-muted">{t(label as UIKey)}</p>
+                  <p class="mt-2 font-heading text-2xl font-bold text-white">{value}</p>
+                </div>
               ))}
-            </ul>
-            <a
-              href={localizePath(plan.name === 'Enterprise' ? '/contact' : '/contact', lang)}
-              class:list={[
-                'mt-8 block rounded-lg py-3.5 text-center text-sm font-semibold transition-all',
-                plan.highlighted
-                  ? 'bg-primary text-white shadow-glow hover:bg-primary/90'
-                  : 'border border-dark-border text-text-light hover:border-primary hover:text-white',
-              ]}
-            >
-              {t(plan.cta as UIKey)}
-            </a>
+            </div>
+            <div class="mt-6 flex-1 space-y-3 border-t border-dark-border pt-5">
+              {plan.decisionPoints.map(([label, value]) => (
+                <div class="flex items-start justify-between gap-4 text-sm">
+                  <span class="text-text-muted">{t(label as UIKey)}</span>
+                  <span class="max-w-[58%] text-right font-semibold text-text-light">{t(value as UIKey)}</span>
+                </div>
+              ))}
+            </div>
+            {!plan.contactOnly && (
+              <a
+                href={localizePath('/contact', lang)}
+                class:list={[
+                  'mt-8 block rounded-lg py-3.5 text-center text-sm font-semibold transition-all',
+                  plan.highlighted
+                    ? 'bg-primary text-white shadow-glow hover:bg-primary/90'
+                    : 'border border-dark-border text-text-light hover:border-primary hover:text-white',
+                ]}
+              >
+                {t('pricing.requestQuote')}
+              </a>
+            )}
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Feature Comparison Table -->
-  <section class="border-t border-dark-border py-24">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <h2 class="text-center font-heading text-3xl font-bold text-white">
-        {t('pricing.compareTitle')}
-      </h2>
-      <p class="mt-3 text-center text-text-muted">
-        {t('pricing.compareSubtitle')}
-      </p>
-      <div class="mt-12 overflow-x-auto">
-        <table class="w-full min-w-[600px] text-sm">
-          <thead>
-            <tr class="border-b border-dark-border">
-              <th class="py-4 pr-4 text-left font-medium text-text-muted">Feature</th>
-              <th class="px-4 py-4 text-center font-medium text-text-muted">Starter</th>
-              <th class="px-4 py-4 text-center font-medium text-primary">Professional</th>
-              <th class="px-4 py-4 text-center font-medium text-text-muted">Enterprise</th>
-            </tr>
-          </thead>
-          <tbody>
-            {comparisonFeatures.map((feat, i) => (
-              <tr class:list={['border-b border-dark-border/50', i % 2 === 0 ? 'bg-dark-surface/30' : '']}>
-                <td class="py-4 pr-4 font-medium text-text-light">{feat.name}</td>
-                <td class="px-4 py-4 text-center">
-                  {typeof feat.starter === 'boolean' ? (
-                    feat.starter ? (
-                      <svg class="mx-auto h-5 w-5 text-primary" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-                    ) : (
-                      <svg class="mx-auto h-5 w-5 text-dark-border" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-                    )
-                  ) : (
-                    <span class="text-text-muted">{feat.starter}</span>
-                  )}
-                </td>
-                <td class="px-4 py-4 text-center">
-                  {typeof feat.professional === 'boolean' ? (
-                    feat.professional ? (
-                      <svg class="mx-auto h-5 w-5 text-primary" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-                    ) : (
-                      <svg class="mx-auto h-5 w-5 text-dark-border" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-                    )
-                  ) : (
-                    <span class="text-white font-medium">{feat.professional}</span>
-                  )}
-                </td>
-                <td class="px-4 py-4 text-center">
-                  {typeof feat.enterprise === 'boolean' ? (
-                    feat.enterprise ? (
-                      <svg class="mx-auto h-5 w-5 text-primary" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-                    ) : (
-                      <svg class="mx-auto h-5 w-5 text-dark-border" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-                    )
-                  ) : (
-                    <span class="text-text-muted">{feat.enterprise}</span>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+  <!-- Monthly Packages -->
+  <section class="border-t border-dark-border py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10 text-center">
+        <h2 class="font-heading text-3xl font-bold text-white">
+          {t('pricing.monthlyTitle')}
+        </h2>
+        <p class="mx-auto mt-3 max-w-2xl text-text-muted">
+          {t('pricing.monthlySubtitle')}
+        </p>
+      </div>
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {monthlyPackages.map((pkg) => (
+          <div
+            class:list={[
+              'rounded-2xl border p-7 transition-all',
+              pkg.highlighted
+                ? 'border-primary bg-dark-surface shadow-glow'
+                : 'border-dark-border bg-dark-surface/50 hover:border-primary/50',
+            ]}
+          >
+            <div class="flex items-center justify-between gap-4">
+              <h3 class="font-heading text-lg font-semibold text-white">{pkg.name}</h3>
+            </div>
+            <div class="mt-5">
+              {pkg.contactOnly ? (
+                <a
+                  href={localizePath('/contact', lang)}
+                  class="inline-flex rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white shadow-glow transition-all hover:bg-primary/90"
+                >
+                  Contact Sales
+                </a>
+              ) : (
+                <p class="text-3xl font-bold text-white">{pkg.monthlyPrice}</p>
+              )}
+              <p class="mt-2 text-xs text-text-muted">{pkg.reference}</p>
+            </div>
+            <div class="mt-7 grid grid-cols-1 gap-3">
+              {pkg.primarySpecs.map(([label, value]) => (
+                <div class:list={[
+                  'rounded-xl border border-primary/20 bg-primary/10 p-4',
+                  label === 'pricing.spec.quantity' ? 'border-primary/40 bg-primary/15' : '',
+                ]}>
+                  <p class="text-xs font-medium text-text-muted">{t(label as UIKey)}</p>
+                  <p class="mt-2 font-heading text-2xl font-bold text-white">{value}</p>
+                </div>
+              ))}
+            </div>
+            <div class="mt-6 space-y-3 border-t border-dark-border pt-5">
+              {pkg.decisionPoints.map(([label, value]) => (
+                <div class="flex items-start justify-between gap-4 text-sm">
+                  <span class="text-text-muted">{t(label as UIKey)}</span>
+                  <span class="max-w-[58%] text-right font-semibold text-text-light">{t(value as UIKey)}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -255,7 +316,7 @@ const faqs = [
         {t('pricing.faqSubtitle')}
       </p>
       <div class="mt-12 space-y-4" id="faq-list">
-        {faqs.map((faq, i) => (
+        {faqs.map((faq) => (
           <div class="faq-item rounded-xl border border-dark-border bg-dark-surface/50">
             <button
               type="button"

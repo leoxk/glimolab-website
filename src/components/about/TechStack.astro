@@ -1,34 +1,72 @@
 ---
 /**
- * TechStack — AI tool chain grid + production pipeline flow
- * Showcases the technology GlimoLab uses for video production.
+ * TechStack — AI model logo showcase + production pipeline flow.
  */
-interface Tool {
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+interface ModelLogo {
   name: string;
-  icon: string;
-  description: string;
+  file: string;
+  svg: string;
 }
 
-const tools: Tool[] = [
-  { name: 'Seedance 2.0', icon: '🎬', description: 'AI video generation & cinematic shots' },
-  { name: 'Kling', icon: '🎥', description: 'Text-to-video synthesis engine' },
-  { name: 'ElevenLabs', icon: '🎙️', description: 'AI voice synthesis & cloning' },
-  { name: 'Whisper', icon: '💬', description: 'Speech recognition & auto-subtitles' },
-];
+const technologyAssetPath = join(process.cwd(), 'public/assets/technology');
 
-const pipeline = ['AI Generation', 'Voice Synthesis', 'Auto Subtitles', 'Multi-platform Export'];
+const modelLogos = [
+  { name: 'Veo', file: 'veo.svg' },
+  { name: 'Kling', file: 'kling.svg' },
+  { name: 'Luma', file: 'luma.svg' },
+  { name: 'Sora', file: 'sora.svg' },
+  { name: 'Midjourney', file: 'midjourney.svg' },
+  { name: 'GPT Image', file: 'gpt-image.svg' },
+  { name: 'Hailuo', file: 'hailuo.svg' },
+  { name: 'Jimeng', file: 'jimeng.svg' },
+  { name: 'Vidu', file: 'vidu.svg' },
+  { name: 'Flux', file: 'flux.svg' },
+  { name: 'Pixverse', file: 'pixverse.svg' },
+  { name: 'Grok', file: 'grok.svg' },
+  { name: 'Gemini', file: 'gemini.svg' },
+  { name: 'Banana', file: 'banana.svg' },
+  { name: 'Seedance', file: 'seedance.svg' },
+  { name: 'TapNow', file: 'tapnow.svg' },
+].map((model) => ({
+  ...model,
+  svg: readFileSync(join(technologyAssetPath, model.file), 'utf8'),
+})) satisfies ModelLogo[];
+
+const pipeline = ['Model Selection', 'AI Generation', 'Creative Direction', 'Post-Production', 'Multi-platform Export'];
 ---
 
 <div>
-  <!-- Tool cards grid -->
-  <div class="grid grid-cols-2 gap-4 sm:grid-cols-4" data-reveal>
-    {tools.map((tool) => (
-      <div class="glass-card glass-card-hover p-6 text-center">
-        <div class="text-4xl">{tool.icon}</div>
-        <h3 class="mt-3 text-sm font-bold text-white">{tool.name}</h3>
-        <p class="mt-1 text-xs leading-relaxed text-text-muted">{tool.description}</p>
+  <!-- Model showcase -->
+  <div class="overflow-hidden rounded-2xl border border-dark-border bg-dark-surface/60 p-8 shadow-glow/20 sm:p-10" data-reveal>
+    <div class="max-w-3xl">
+      <p class="text-sm font-medium text-text-muted">
+        We help brands thrive in the generative era.
+      </p>
+      <h3 class="mt-16 font-heading text-4xl font-bold text-white sm:text-5xl">
+        Frontier Model Stack
+      </h3>
+      <p class="mt-3 max-w-xl text-base leading-relaxed text-text-muted">
+        The smart choice for AI-assisted commercial video production, powered by a curated stack of image, video, and reasoning models.
+      </p>
+    </div>
+
+    <div class="mt-14 border-t border-dark-border pt-6">
+      <div class="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4 lg:grid-cols-8">
+        {modelLogos.map((model) => (
+          <div class="flex items-center gap-3 text-text-muted transition-colors hover:text-text-light">
+            <span
+              class="flex h-7 w-7 shrink-0 items-center justify-center opacity-80 [&_svg]:h-7 [&_svg]:w-7"
+              aria-hidden="true"
+              set:html={model.svg}
+            />
+            <span class="text-sm font-semibold">{model.name}</span>
+          </div>
+        ))}
       </div>
-    ))}
+    </div>
   </div>
 
   <!-- Pipeline flow -->

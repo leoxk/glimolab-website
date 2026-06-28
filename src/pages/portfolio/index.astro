@@ -17,16 +17,15 @@ const sorted = portfolio.sort(
 
 const filters = [
   { label: 'All', value: 'all' },
-  { label: 'E-commerce', value: 'ecommerce' },
   { label: 'Brand', value: 'brand' },
-  { label: 'Education', value: 'education' },
-  { label: 'Social Media', value: 'social' },
+  { label: 'E-commerce', value: 'ecommerce' },
+  { label: 'Automotive', value: 'automotive' },
 ];
 ---
 
 <BaseLayout
   title="Portfolio — GlimoLab AI Video Production"
-  description="Explore our client work — from e-commerce batch production to brand stories and viral social campaigns."
+  description="Explore GlimoLab AI video concept showcases across luxury brand films, product ads, and cinematic launch content."
 >
   <!-- ============ Hero ============ -->
   <section class="relative overflow-hidden">
@@ -50,7 +49,7 @@ const filters = [
           <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
           <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
         </span>
-        Case Studies
+        Concept Showcases
       </div>
 
       <h1 class="animate-fade-in-up mt-8 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl" style="animation-delay: 0.1s;">
@@ -58,7 +57,7 @@ const filters = [
       </h1>
 
       <p class="animate-fade-in-up mt-6 max-w-2xl text-lg leading-relaxed text-text-muted" style="animation-delay: 0.2s;">
-        Explore how we've helped brands across Southeast Asia scale their video content with AI-powered production.
+        Explore AI-generated video directions for luxury brand films, product ads, and cinematic launch content.
       </p>
     </div>
   </section>
@@ -91,6 +90,7 @@ const filters = [
             description={entry.data.description}
             category={entry.data.category}
             client={entry.data.client}
+            thumbnail={entry.data.thumbnail}
             slug={entry.id}
           />
         ))}
@@ -105,8 +105,8 @@ const filters = [
 
   <!-- ============ CTA ============ -->
   <CTASection
-    title="Your Project Could Be Next"
-    description="Join the brands that trust GlimoLab for their video content needs."
+    title="Build Your Own AI Video Case"
+    description="Send us a product, brand idea, or launch goal and we'll recommend the right production direction."
     primaryLabel="Start a Project"
     secondaryLabel="View Services"
   />

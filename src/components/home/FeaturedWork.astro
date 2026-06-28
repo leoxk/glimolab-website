@@ -12,16 +12,22 @@ const projects = [
     categoryKey: 'work.project1.category' as const,
     titleKey: 'work.project1.title' as const,
     clientKey: 'work.project1.client' as const,
+    thumbnail: '/assets/portfolio/eternite-paris-cover.jpg',
+    href: '/portfolio/eternite-paris-luxury-film',
   },
   {
     categoryKey: 'work.project2.category' as const,
     titleKey: 'work.project2.title' as const,
     clientKey: 'work.project2.client' as const,
+    thumbnail: '/assets/portfolio/headphone-ad-cover.jpg',
+    href: '/portfolio/headphone-product-ad',
   },
   {
     categoryKey: 'work.project3.category' as const,
     titleKey: 'work.project3.title' as const,
     clientKey: 'work.project3.client' as const,
+    thumbnail: '/assets/portfolio/amg-gt-xx-cover.jpg',
+    href: '/portfolio/amg-gt-xx-concept-film',
   },
 ];
 ---
@@ -38,13 +44,18 @@ const projects = [
     <!-- Project cards -->
     <div class="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
       {projects.map((project, i) => (
-        <article class={`animate-on-scroll stagger-${i + 1} group cursor-pointer overflow-hidden rounded-2xl border border-dark-border bg-dark-surface transition-all duration-300 hover:-translate-y-1 hover:shadow-glow`}>
-          <!-- Thumbnail placeholder -->
+        <a
+          href={localizePath(project.href, lang)}
+          class={`animate-on-scroll stagger-${i + 1} group overflow-hidden rounded-2xl border border-dark-border bg-dark-surface transition-all duration-300 hover:-translate-y-1 hover:shadow-glow`}
+        >
           <div class="relative aspect-video overflow-hidden bg-dark-bg">
-            <!-- Placeholder gradient background -->
-            <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-dark-bg to-accent/10"></div>
-            <!-- Grid pattern overlay -->
-            <div class="bg-grid absolute inset-0 opacity-30"></div>
+            <img
+              src={project.thumbnail}
+              alt=""
+              loading="lazy"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-bg/70 via-transparent to-transparent"></div>
             <!-- Play button -->
             <div class="absolute inset-0 flex items-center justify-center">
               <div class="flex h-14 w-14 items-center justify-center rounded-full bg-dark-bg/60 text-white backdrop-blur-sm ring-1 ring-white/10 transition-transform group-hover:scale-110">
@@ -68,7 +79,7 @@ const projects = [
               {t(project.clientKey)}
             </p>
           </div>
-        </article>
+        </a>
       ))}
     </div>
 

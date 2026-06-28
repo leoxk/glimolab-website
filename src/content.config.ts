@@ -8,7 +8,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-/* --- Portfolio — showcase of client video work --- */
+/* --- Portfolio — concept showcases and selected video work --- */
 const portfolio = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/portfolio' }),
   schema: z.object({
