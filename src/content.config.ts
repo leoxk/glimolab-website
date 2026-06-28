@@ -1,7 +1,7 @@
 /**
  * GlimoLab Content Collections (Astro 5.x)
  *
- * Defines typed content schemas for portfolio, blog, and services.
+ * Defines typed content schemas for portfolio and blog.
  * Uses the glob loader API so each entry is a markdown/MDX file
  * inside the corresponding `src/content/<collection>` directory.
  */
@@ -44,16 +44,4 @@ const blog = defineCollection({
   }),
 });
 
-/* --- Services — offerings catalog --- */
-const services = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/services' }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    icon: z.string(),
-    features: z.array(z.string()).default([]),
-    order: z.number().default(0),
-  }),
-});
-
-export const collections = { portfolio, blog, services };
+export const collections = { portfolio, blog };

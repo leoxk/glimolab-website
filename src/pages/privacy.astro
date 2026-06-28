@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy — GlimoLab"
+  description="GlimoLab privacy policy for website visitors, leads, and clients."
+>
+  <section class="relative overflow-hidden">
+    <div class="bg-grid pointer-events-none absolute inset-0"></div>
+    <div
+      class="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[720px] -translate-x-1/2 rounded-full blur-3xl"
+      style="background: radial-gradient(circle, rgba(0,102,255,0.14) 0%, transparent 70%);"
+    >
+    </div>
+
+    <div class="relative mx-auto max-w-3xl px-4 py-24 sm:px-6 lg:py-32">
+      <p class="font-heading text-sm font-semibold uppercase tracking-widest text-accent">
+        Legal
+      </p>
+      <h1 class="mt-5 text-4xl font-bold leading-tight text-white sm:text-5xl">
+        Privacy Policy
+      </h1>
+      <p class="mt-5 text-sm text-text-muted">Last updated: June 28, 2026</p>
+    </div>
+  </section>
+
+  <section class="border-t border-dark-border py-16">
+    <div class="mx-auto max-w-3xl space-y-10 px-4 text-text-muted sm:px-6">
+      <div>
+        <h2 class="text-xl font-bold text-white">Information We Collect</h2>
+        <p class="mt-3 leading-relaxed">
+          We collect information you choose to send us, such as your name, email address, company,
+          project brief, and message details. We may also receive basic website analytics such as
+          pages viewed, browser type, approximate location, and referral source.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-white">How We Use Information</h2>
+        <p class="mt-3 leading-relaxed">
+          We use this information to respond to inquiries, prepare proposals, deliver services,
+          improve the website, and maintain client communication. We do not sell personal
+          information.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-white">Project Materials</h2>
+        <p class="mt-3 leading-relaxed">
+          Client-provided assets, briefs, and production materials are used only for the agreed
+          project scope unless we receive permission to use them for portfolio, marketing, or case
+          study purposes.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-white">Contact</h2>
+        <p class="mt-3 leading-relaxed">
+          For privacy questions or requests, contact us at{' '}
+          <a href="mailto:contact@glimolab.com" class="text-primary hover:text-accent">contact@glimolab.com</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

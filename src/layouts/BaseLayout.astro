@@ -23,7 +23,7 @@ const siteName = 'GlimoLab';
 const {
   title = 'GlimoLab — AI-Powered Video Production Studio',
   description = 'GlimoLab blends artificial intelligence with cinematic craft to produce video content that captivates, converts, and scales.',
-  image = '/og-default.png',
+  image = '/assets/banner-about.png',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -35,9 +35,8 @@ const htmlLang = lang;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/favicon-32.png" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/favicon-64.png" />
+    <link rel="icon" type="image/png" href="/assets/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Primary SEO -->

@@ -4,13 +4,11 @@
  * Logo (left) · nav links (center) · language switcher + CTA (right)
  * Adds a backdrop-blur background once the user scrolls.
  */
-import { useTranslations, getLangFromUrl, localizePath, getLanguages } from '@i18n/utils';
-import { defaultLang, type Lang } from '@i18n/ui';
+import { useTranslations, getLangFromUrl, localizePath } from '@i18n/utils';
 import Logo from '@components/Logo.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const languages = getLanguages();
 
 const navLinks = [
   { key: 'nav.home' as const, href: '/' },
@@ -64,10 +62,12 @@ const currentPath = Astro.url.pathname.replace(`/${lang}`, '') || '/';
 
     <!-- Right cluster: language switcher + CTA -->
     <div class="flex items-center gap-3">
-      <!-- Language switcher -->
+      <!-- Current language indicator -->
       <div class="relative hidden sm:block" id="lang-switcher">
         <button
+          type="button"
           class="flex items-center gap-1 rounded-lg border border-dark-border px-2.5 py-2 text-sm text-text-light cursor-default"
+          aria-label="Current language: English"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="12" cy="12" r="10" />
@@ -130,27 +130,6 @@ const currentPath = Astro.url.pathname.replace(`/${lang}`, '') || '/';
           </li>
         );
       })}
-      <li class="pt-2">
-        <!-- Language switcher (mobile) -->
-        <div class="flex flex-wrap gap-2">
-          {(Object.entries(languages) as [Lang, string][]).map(([code, label]) => (
-            code === lang ? (
-              <span
-                class="rounded-md border border-primary bg-primary/10 px-3 py-1.5 text-xs font-medium uppercase text-primary cursor-default"
-              >
-                {code}
-              </span>
-            ) : (
-              <span
-                class="rounded-md border border-dark-border px-3 py-1.5 text-xs font-medium uppercase text-text-muted/50 cursor-not-allowed"
-                title={`${label} — coming soon`}
-              >
-                {code}
-              </span>
-            )
-          ))}
-        </div>
-      </li>
       <li class="pt-3">
         <a
           href={localizePath('/contact', lang)}
