@@ -184,18 +184,6 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-4px);
 }
 
-/* Scroll reveal animation — toggled by IntersectionObserver */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* Line clamp utility (Tailwind v4 may not include this by default) */
 .line-clamp-2 {
   display: -webkit-box;
@@ -204,41 +192,92 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
-/* Respect reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  .animate-fade-in-up {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Animation: scroll-triggered fade-in */
-@keyframes scroll-fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-on-scroll {
+/* Scroll-triggered entrance and exit motion */
+.reveal,
+[data-reveal],
+.animate-on-scroll,
+.scroll-reveal-section,
+.scroll-fly-item {
+  --reveal-x: 0px;
+  --reveal-y: 54px;
+  --reveal-rotate: 0deg;
+  --reveal-scale: 0.96;
+  --exit-x: 0px;
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  transform:
+    translate3d(var(--reveal-x), var(--reveal-y), 0)
+    rotate(var(--reveal-rotate))
+    scale(var(--reveal-scale));
+  filter: blur(10px);
+  transition:
+    opacity 0.82s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.82s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.82s ease;
+  will-change: opacity, transform, filter;
 }
 
-.animate-on-scroll.visible {
+.scroll-reveal-section {
+  --reveal-y: 72px;
+  --reveal-scale: 0.975;
+  transition-duration: 0.9s;
+}
+
+.scroll-fly-item,
+[data-reveal],
+.animate-on-scroll {
+  --reveal-x: -92px;
+  --reveal-y: 34px;
+  --reveal-rotate: -2.5deg;
+  --exit-x: -26px;
+}
+
+.scroll-fly-item:nth-child(2n),
+[data-reveal]:nth-child(2n),
+.animate-on-scroll:nth-child(2n) {
+  --reveal-x: 92px;
+  --reveal-rotate: 2.5deg;
+  --exit-x: 26px;
+}
+
+.scroll-fly-item:nth-child(3n),
+[data-reveal]:nth-child(3n),
+.animate-on-scroll:nth-child(3n) {
+  --reveal-x: 0px;
+  --reveal-y: 86px;
+  --reveal-rotate: 0deg;
+  --exit-x: 0px;
+}
+
+.reveal.is-visible,
+[data-reveal].is-visible,
+.animate-on-scroll.visible,
+.animate-on-scroll.is-visible,
+.scroll-reveal-section.is-visible,
+.scroll-fly-item.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  filter: blur(0);
+}
+
+.reveal.is-exiting,
+[data-reveal].is-exiting,
+.animate-on-scroll.is-exiting,
+.scroll-reveal-section.is-exiting,
+.scroll-fly-item.is-exiting {
+  opacity: 0.28;
+  transform: translate3d(var(--exit-x), -46px, 0) rotate(calc(var(--reveal-rotate) * -0.6)) scale(0.97);
+  filter: blur(5px);
+  transition-duration: 0.5s;
+}
+
+[data-reveal]:not([class*="stagger-"]):nth-child(2n),
+.animate-on-scroll:not([class*="stagger-"]):nth-child(2n) {
+  transition-delay: 0.08s;
+}
+
+[data-reveal]:not([class*="stagger-"]):nth-child(3n),
+.animate-on-scroll:not([class*="stagger-"]):nth-child(3n) {
+  transition-delay: 0.14s;
 }
 
 /* Stagger delays for children */
@@ -246,6 +285,31 @@ h1, h2, h3, h4, h5, h6 {
 .stagger-2 { transition-delay: 0.2s; }
 .stagger-3 { transition-delay: 0.3s; }
 .stagger-4 { transition-delay: 0.4s; }
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  [data-reveal],
+  .animate-on-scroll,
+  .scroll-reveal-section,
+  .scroll-fly-item {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .animate-fade-in-up,
+  .hero-node,
+  .animate-bounce-down,
+  .stat-glow,
+  .line-animated,
+  .animate-float {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
 
 /* Animation: Hero grid nodes */
 @keyframes node-pulse {
